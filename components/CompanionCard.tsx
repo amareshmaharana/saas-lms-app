@@ -29,7 +29,9 @@ const CompanionCard = ({ id, name, topic, subject, duration, color }: CompanionC
             </div>
 
             <Link href={`/companions/${id}`} className="w-full">
-                <button className="btn-primary w-full justify-center">Launch Session</button>
+                <button className="btn-primary w-full justify-center" style={{ backgroundColor: "#FF4D00" }}>
+                    Launch Session
+                </button>
             </Link>
         </article>
     )
