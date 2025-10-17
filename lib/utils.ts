@@ -12,6 +12,13 @@ export const getSubjectColor = (subject: string) => {
 };
 
 export const configureAssistant = (voice: string, style: string) => {
+  console.log("configureAssistant → voice:", voice, "style:", style);
+  console.log("available voices:", Object.keys(voices));
+
+  const selectedVoiceGroup = voices[voice as keyof typeof voices];
+  if (!selectedVoiceGroup) {
+    console.warn(`⚠️ Invalid voice "${voice}". Falling back to "female".`);
+  }
   const voiceId = voices[voice as keyof typeof voices][
           style as keyof (typeof voices)[keyof typeof voices]
           ] || "sarah";
