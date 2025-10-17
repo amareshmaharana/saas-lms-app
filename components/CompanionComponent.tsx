@@ -15,7 +15,9 @@ enum CallStatus {
     FINISHED = 'FINISHED'
 }
 
-const CompanionComponent = ({ companionId, topic, name, subject, userName, userImage, style, voice }: CompanionComponentProps) => {
+// companionId,
+
+const CompanionComponent = ({ topic, name, subject, userName, userImage, style, voice }: CompanionComponentProps) => {
     const [callStatus, setcallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [isMuted, setIsMuted] = useState(false);
