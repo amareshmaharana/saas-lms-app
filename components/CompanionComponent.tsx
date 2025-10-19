@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { cn, configureAssistant, getSubjectColor } from '@/lib/utils'
 import soundwaves from '@/constants/soundwaves.json';
+import { addToSessionHistory } from '@/lib/actions/companion.actions';
 
 enum CallStatus {
     INACTIVE = 'INACTIVE',
@@ -17,7 +18,7 @@ enum CallStatus {
 
 // companionId,
 
-const CompanionComponent = ({ topic, name, subject, userName, userImage, style, voice }: CompanionComponentProps) => {
+const CompanionComponent = ({ companionId, topic, name, subject, userName, userImage, style, voice }: CompanionComponentProps) => {
     const [callStatus, setcallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
     const [isSpeaking, setIsSpeaking] = useState(false);
     const [isMuted, setIsMuted] = useState(false);
@@ -37,7 +38,10 @@ const CompanionComponent = ({ topic, name, subject, userName, userImage, style, 
 
     useEffect(() => {
         const onCallStart = () => setcallStatus(CallStatus.ACTIVE);
-        const onCallEnd = () => setcallStatus(CallStatus.FINISHED);
+        const onCallEnd = () => {
+            setcallStatus(CallStatus.FINISHED);
+            addToSessionHistory(companionId);
+        };
         const onMessage = (message: Message) => {
             if (message.type === 'transcript' && message.transcriptType === 'final') {
                 const newMessage = { role: message.role, content: message.transcript };
